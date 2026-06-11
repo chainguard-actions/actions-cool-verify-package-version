@@ -1,0 +1,1 @@
+# actions-cool-verify-package-version
