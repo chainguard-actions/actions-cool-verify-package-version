@@ -1,0 +1,20 @@
+name: Verify Package Version
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review, review_requested]
+
+permissions: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.title, 'changelog')
+    steps:
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
+      - name: verify-version
+        uses: actions-cool/verify-package-version@ae43426c6a7f3618fbeded7a82643e0256e830b6 # main
+        with:
+          title-include-content: 'docs'
+          title-include-version: true
+          open-comment: true

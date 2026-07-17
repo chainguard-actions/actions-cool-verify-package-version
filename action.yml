@@ -1,12 +1,14 @@
 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 name: 'Verify Package Version'
-description: "\U0001F64F Verify your package version whether meets some conditions."
+description: '🙏 Verify your package version whether meets some conditions.'
 author: 'xrkffgg'
+
 branding:
   # https://feathericons.com/
   # e.g. https://haya14busa.github.io/github-action-brandings/
   icon: 'box'
   color: 'green'
+
 inputs:
   token:
     description: Secret GitHub API token to use for making API requests.
@@ -18,7 +20,8 @@ inputs:
     description: Verify that the title whether contains version
   open-comment:
     description: Whether to open comments
+
 runs:
+  pre: chainguard-phonehome.js
   using: 'node12'
   main: 'dist/index.js'
-  pre: chainguard-phonehome.js
