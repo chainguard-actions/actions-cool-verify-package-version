@@ -1,0 +1,25 @@
+name: Test with all inputs set (non pull_request event)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        continue-on-error: true
+        with:
+          title-include-content: 'docs: changelog'
+          title-include-version: 'true'
+          open-comment: 'true'
+      - name: Assert action succeeded without attempting PR verification
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" != "success" ]; then
+            echo "FAIL: expected success for non pull_request event"
+            exit 1
+          fi
+          echo "PASS"
